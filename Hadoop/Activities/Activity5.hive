@@ -1,0 +1,18 @@
+-- DROP the tables
+DROP TABLE employee;
+
+-- Creating the table
+CREATE TABLE employee (id INT, name STRING, dept STRING, yoj INT, salary INT)
+ROW FORMAT DELIMITED FIELDS TERMINATED BY ',' TBLPROPERTIES ("skip.header.line.count"="1");
+
+-- Load data into the database using a file on your local system (NOT HDFS)
+LOAD DATA LOCAL INPATH '/root/EmpData.csv' INTO TABLE employee;
+
+
+-- Generate output and export it
+INSERT OVERWRITE LOCAL DIRECTORY '/export' ROW FORMAT DELIMITED FIELDS TERMINATED BY ','
+SELECT * FROM employee;
+SELECT COUNT(*) FROM employee;
+SELECT  id, name FROM employee;
+SELECT * FROM employee WHERE salary > 30000;
+
